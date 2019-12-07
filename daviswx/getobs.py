@@ -23,9 +23,15 @@ def append_externals_to_path():
     current_script = os.path.abspath(__file__)
     current_directory = os.path.dirname(current_script)
     external_dir = current_directory + '/../external'
-    remserial_dir = external_dir+'/remserial-1.3'
-    vproweather_dir = external_dir+'/vproweather-0.6'
-    env['PATH'] = remserial_dir+':'+vproweather_dir+':'+env['PATH']
+
+    # 3 lines below specify seprate dirs
+    #remserial_dir = external_dir+'/remserial-1.3'
+    #vproweather_dir = external_dir+'/vproweather-0.6'
+    #env['PATH'] = remserial_dir+':'+vproweather_dir+':'+env['PATH']
+
+    # This corresponds to unified external dir from setup.py
+    env['PATH'] = external_dir+':'+env['PATH']
+
     return env
 
 def establish_connection(params):
