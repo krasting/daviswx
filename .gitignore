@@ -1,6 +1,7 @@
 build/
 *egg-info/
 dist/
+__pycache__
 external/remserial-1.3/remserial
 external/remserial-1.3/remserial.o
 external/remserial-1.3/stty.o
