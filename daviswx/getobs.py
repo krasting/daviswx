@@ -11,6 +11,12 @@ import tempfile
 
 params = {'port':9100,'host':'localhost'}
 
+if 'DAVIS_HOSTNAME' in os.environ.keys():
+    params['host'] = os.environ['DAVIS_HOSTNAME']
+
+if 'DAVIS_PORT' in os.environ.keys():
+    params['port'] = os.environ['DAVIS_PORT']
+
 def validate_externals(path=None):
     tools = []
     tools.append(shutil.which('remserial'))
