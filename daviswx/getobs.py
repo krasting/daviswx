@@ -116,9 +116,13 @@ def call_vproweather(device,opt='-x'):
     return stdout, proc.returncode
 
 
-def current():
+def current(hostname=None,port=None):
     env = append_externals_to_path()
     validate_externals(path=env['PATH'])
+    if hostname is not None:
+        params['host'] = hostname
+    if port is not None:
+        params['port'] = port
     connection, device = establish_connection(params)
     stdout, rc = call_vproweather(device)
     connection.terminate()
