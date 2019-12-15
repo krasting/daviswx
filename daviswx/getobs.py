@@ -8,6 +8,7 @@ import subprocess
 import sys
 import time
 import tempfile
+import datetime
 
 params = {'port':9100,'host':'localhost'}
 
@@ -65,6 +66,7 @@ class realTimeOutput:
     rtIsRaining
     rtMonthET
     rtMonthRain
+    rtObsTime
     rtOutsideHum
     rtOutsideTemp
     rtRainRate
@@ -103,7 +105,7 @@ class realTimeOutput:
                 v = float(v)
             result[k] = v
         self.__dict__ = result
-
+        self.rtObsTime = datetime.datetime.utcnow()
 
 def call_vproweather(device,opt='-x'):
     cmd = 'vproweather -x '+device
