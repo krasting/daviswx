@@ -17,7 +17,7 @@ def my_job(text):
 
 @app.route('/')
 def hello():
-    msg = "Hello World!  The current temperature is: "+str(O.rtOutsideTemp)
+    msg = "Hello World!  The current temperature is: "+str(O.rtOutsideTemp)+' at '+O.rtObsTime.strftime('%Y-%m-%d %H:%M' )
     return msg
 
 if __name__ == '__main__':
