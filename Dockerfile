@@ -20,6 +20,7 @@ RUN python setup.py install
 
 # install flask
 RUN pip install flask
+RUN pip install flask_apscheduler
 
 # remove developer tools to save space
 RUN apk del .build-deps gcc
