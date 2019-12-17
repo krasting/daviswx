@@ -21,6 +21,8 @@ RUN python setup.py install
 # install flask
 RUN pip install flask
 RUN pip install flask_apscheduler
+RUN pip install matplotlob
+RUN pip install pandas
 
 # remove developer tools to save space
 RUN apk del .build-deps gcc
