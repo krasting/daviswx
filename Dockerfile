@@ -1,13 +1,23 @@
 # Base 3.7.5 Python build on alpine linux
 FROM python:3.7.5-alpine3.10
 
-# optional environment variables to set hostname
-ENV DAVIS_HOSTNAME 
-ENV DAVIS_PORT 
-
 # add developer packages and shell
 # note: if using interactively, use "sh" instead of "bash"
-RUN apk add --no-cache --virtual .build-deps gcc git libc-dev make bash
+RUN apk add --no-cache --virtual .build-deps \
+            bash \
+	    build-base \
+            freetype \
+ 	    freetype-dev \
+	    gcc \
+            git \
+            libc-dev \
+            libpng \
+	    libpng-dev \
+            libstdc++ \
+            make \
+	    musl-dev
+#	    python-dev \
+RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
 
 # clone the git repository
 WORKDIR /app
@@ -18,22 +28,6 @@ WORKDIR /app/daviswx
 RUN git checkout dev
 RUN python setup.py install
 
-# install flask
-RUN pip install flask
-RUN pip install flask_apscheduler
-RUN pip install matplotlob
-RUN pip install pandas
-
-# remove developer tools to save space
-RUN apk del .build-deps gcc
-
-# open port 80 to the world
-EXPOSE 80
-
-# copy in simple flask script
-WORKDIR /app
-ADD app.py .
-
-# start the server
-ENTRYPOINT [ "python" ]
-CMD [ "app.py" ]
+# install python stack
+RUN pip install numpy
+RUN pip install matplotlib pandas flask flask_apscheduler
