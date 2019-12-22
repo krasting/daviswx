@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Current Weather in Cranbury, NJ</title>
+</head>
+<body>
+
+<table>
+  <tr>
+    <td>Temperature: </td> <td> {{ temp }} </td>
+  </tr>
+  <tr>
+    <td>Dewpoint: </td>    <td> {{ dewpoint }} </td>
+  </tr>
+  <tr>
+    <td>Humidity: </td>    <td> {{ humidity }} </td>
+  </tr>
+  <tr>
+    <td>Barometer: </td>   <td> {{ barometer }} </td>
+  </tr>
+  <tr>
+    <td>Rain Today: </td>  <td>  {{raintoday}} </td>
+  </tr>
+</table>
+
+<hr>
+
+{{ plot|safe }}
+
+<hr>
+
+{{ dataframe|safe }}
+
+</body>
+</html>
