@@ -77,6 +77,18 @@ else:
     df = pd.read_pickle('./test_data.pkl')
 img = make_plot(df)
 
+def update_wunderground(O):
+    dateutc = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S').replace(':','%3A').replace(' ','+')
+    #upload_url = 'http://weatherstation.wunderground.com/weatherstation/updateweatherstation.php'
+    upload_url = 'https://rtupdate.wunderground.com/weatherstation/updateweatherstation.php'
+    WU_STATION_ID = ''
+    WU_PASSWORD = ''
+    url = upload_url+"?ID="+WU_STATION_ID+"&PASSWORD="+WU_PASSWORD+"&dateutc=" + \
+          dateutc + "&tempf=" + str(O.rtOutsideTemp) + "&humidity=" + str(O.rtOutsideHum) + \
+          "&dailyrainin=" + str(O.rtDayRain) + "&baromin=" + str(O.rtBaroCurr) + \
+          "&dewptf=" + str(O.rtOutsideDew) +"&action=updateraw"
+    pwsstatus = urllib.urlopen(url)
+
 #function executed by scheduled job
 def my_job(hostname,port):
     global O
