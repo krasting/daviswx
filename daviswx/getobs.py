@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import math
 import os
 import re
 import shutil
@@ -49,6 +50,15 @@ def establish_connection(params):
         stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
     time.sleep(2)
     return connection, device_link
+
+def calculate_dewpoint(temp,rh):
+    # conversion from:
+    # https://bmcnoldy.rsmas.miami.edu/Humidity.html
+    T = (temp - 32.) * 5.0/9.0
+    TD = 243.04*(math.log(rh/100) + ((17.625*T)/(243.04+T))) / \
+         (17.625-math.log(rh/100) - ((17.625*T)/(243.04+T)))
+    TD = 9.0/5.0 * TD + 32.
+    return round(TD,1)
 
 class realTimeOutput:
     '''
@@ -106,6 +116,7 @@ class realTimeOutput:
             result[k] = v
         self.__dict__ = result
         self.rtObsTime = datetime.datetime.utcnow()
+        self.rtOutsideDew = calculate_dewpoint(self.rtOutsideTemp,self.rtOutsideHum)
 
 def call_vproweather(device,opt='-x'):
     cmd = 'vproweather -x '+device
