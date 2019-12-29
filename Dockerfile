@@ -1,27 +1,5 @@
 # Base 3.7.5 Python build on alpine linux
-FROM python:3.7.5-alpine3.10
-
-# add developer packages and shell
-# note: if using interactively, use "sh" instead of "bash"
-RUN apk add --no-cache --virtual .build-deps \
-            bash \
-	    build-base \
-            freetype \
- 	    freetype-dev \
-	    gcc \
-            git \
-            libc-dev \
-            libpng \
-	    libpng-dev \
-            libstdc++ \
-            make \
-	    musl-dev
-#	    python-dev \
-RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
-
-# install python stack
-RUN pip install numpy
-RUN pip install matplotlib pandas flask flask_apscheduler
+FROM krasting/python-3.7.5-numpy-mpl-pandas-flask
 
 # clone the git repository
 WORKDIR /app
