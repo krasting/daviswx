@@ -19,6 +19,10 @@ RUN apk add --no-cache --virtual .build-deps \
 #	    python-dev \
 RUN ln -s /usr/include/locale.h /usr/include/xlocale.h
 
+# install python stack
+RUN pip install numpy
+RUN pip install matplotlib pandas flask flask_apscheduler
+
 # clone the git repository
 WORKDIR /app
 RUN git clone https://github.com/krasting/daviswx
@@ -27,7 +31,3 @@ RUN git clone https://github.com/krasting/daviswx
 WORKDIR /app/daviswx
 RUN git checkout dev
 RUN python setup.py install
-
-# install python stack
-RUN pip install numpy
-RUN pip install matplotlib pandas flask flask_apscheduler
