@@ -27,9 +27,10 @@ def make_plot(x):
     fig = plt.figure(figsize=(8,4.5))                                                                                 
     ax = plt.subplot(1,1,1)
     # plot the data
-    plt.plot(_x.index,_x.rtOutsideTemp,'b',linewidth=2)
+    plt.plot(_x.index,_x.rtOutsideTemp,'r',linewidth=2)
+    plt.plot(_x.index,_x.rtOutsideDew,'b',linewidth=2)
     # add title and format tick labels
-    ax.text(0.02,1.02,'Temperature',transform=ax.transAxes)
+    ax.text(0.02,1.02,'Temperature and Dewpoint',transform=ax.transAxes)
     myFmt = mdates.DateFormatter('%H:%M')
     ax.xaxis.set_major_formatter(myFmt)
     # add grid lines
@@ -104,10 +105,11 @@ def hello():
     return render_template('current.html', \
              temp=str(O.rtOutsideTemp), \
              humidity=str(O.rtOutsideHum), \
+             dewpoint=str(O.rtOutsideDew), \
              barometer=str(O.rtBaroCurr), \
              raintoday=str(O.rtDayRain), \
              plot=img,\
-             dataframe = df[['rtOutsideTemp','rtOutsideHum']].to_html())
+             dataframe = df[['rtOutsideTemp','rtOutsideDew']].to_html())
 
 if __name__ == '__main__':
     if production_mode is True:
